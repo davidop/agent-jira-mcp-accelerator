@@ -46,7 +46,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 04-01: Add Playwright and xUnit test automation baseline with CI integration.
+- [x] 04-01: Add Playwright and xUnit test automation baseline with CI integration.
 - [ ] 04-02: Enforce CI test gates and publish quality visibility artifacts/documentation.
 
 ## Phase 2 — Jira Cloud integration
