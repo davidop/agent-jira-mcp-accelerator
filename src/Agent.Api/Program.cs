@@ -26,3 +26,5 @@ app.MapPost("/api/agent/ask", async (AgentRequest request, DemoAgentService agen
 app.MapDefaultEndpoints();
 
 app.Run();
+
+public partial class Program;
