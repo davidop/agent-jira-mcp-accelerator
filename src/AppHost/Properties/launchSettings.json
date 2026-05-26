@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "AppHost": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "http://127.0.0.1:18888",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPIRE_ALLOW_UNSECURED_TRANSPORT": "true",
+        "ASPNETCORE_URLS": "http://127.0.0.1:18888"
+      }
+    }
+  }
+}

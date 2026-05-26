@@ -1,4 +1,4 @@
-# Enterprise Agent Accelerator: Jira MCP + Azure + .NET
+# Agent Jira MCP Accelerator: Jira MCP + Azure + .NET
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![.NET](https://img.shields.io/badge/.NET-10-blueviolet)](https://dotnet.microsoft.com/)

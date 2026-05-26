@@ -1,6 +1,6 @@
 if (string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("ASPNETCORE_URLS")))
 {
-    Environment.SetEnvironmentVariable("ASPNETCORE_URLS", "http://127.0.0.1:18888");
+    Environment.SetEnvironmentVariable("ASPNETCORE_URLS", $"http://127.0.0.1:{FindAvailablePort(18888)}");
 }
 
 if (string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("ASPIRE_DASHBOARD_OTLP_ENDPOINT_URL")) &&
@@ -28,3 +28,22 @@ builder.AddProject("web", "../Web/Web.csproj")
     .WithExternalHttpEndpoints();
 
 builder.Build().Run();
+
+static int FindAvailablePort(int startPort)
+{
+    for (var port = startPort; port < startPort + 100; port++)
+    {
+        try
+        {
+            using var listener = new System.Net.Sockets.TcpListener(System.Net.IPAddress.Loopback, port);
+            listener.Start();
+            return port;
+        }
+        catch (System.Net.Sockets.SocketException)
+        {
+            // Try next port.
+        }
+    }
+
+    throw new InvalidOperationException("No free port found for AppHost startup.");
+}
