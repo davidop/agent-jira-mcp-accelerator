@@ -23,6 +23,7 @@ Prompt:
 ```
 
 Explain that the agent is not guessing. It calls a Jira MCP tool.
+Mention that the query is executed against Jira Cloud in read-only mode with governed credentials.
 
 ## 4. Live query: sprint executive summary — 2 minutes
 
@@ -33,6 +34,7 @@ Resume el estado del sprint actual para comité de dirección.
 ```
 
 Explain the value: no JQL, no manual dashboard reading, direct executive interpretation.
+If asked about reliability, explain pagination and retry handling for large or rate-limited Jira responses.
 
 ## 5. Live query: risk narrative — 2 minutes
 

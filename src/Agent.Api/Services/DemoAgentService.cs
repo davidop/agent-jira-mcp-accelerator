@@ -12,31 +12,45 @@ public sealed class DemoAgentService
 
     public async Task<AgentResponse> AnswerAsync(AgentRequest request, CancellationToken cancellationToken)
     {
-        var q = request.Question.ToLowerInvariant();
-        var projectKey = string.IsNullOrWhiteSpace(request.ProjectKey) ? "KM" : request.ProjectKey;
-
-        if (q.Contains("bloque") || q.Contains("blocked"))
+        try
         {
-            var data = await _jira.GetBlockedIssuesAsync(projectKey, cancellationToken);
-            return BuildBlockedResponse(data, request.IncludeRawToolData);
-        }
+            var q = request.Question.ToLowerInvariant();
+            var projectKey = string.IsNullOrWhiteSpace(request.ProjectKey) ? "KM" : request.ProjectKey;
 
-        if (q.Contains("sprint") || q.Contains("comité") || q.Contains("comite") || q.Contains("executive") || q.Contains("ejecutivo"))
+            if (q.Contains("bloque") || q.Contains("blocked"))
+            {
+                var data = await _jira.GetBlockedIssuesAsync(projectKey, cancellationToken);
+                return BuildBlockedResponse(data, request.IncludeRawToolData);
+            }
+
+            if (q.Contains("sprint") || q.Contains("comité") || q.Contains("comite") || q.Contains("executive") || q.Contains("ejecutivo"))
+            {
+                var data = await _jira.GetSprintSummaryAsync(projectKey, null, cancellationToken);
+                return BuildSprintResponse(data, request.IncludeRawToolData);
+            }
+
+            if (q.Contains("asign") || q.Contains("assigned"))
+            {
+                var assignee = request.UserName ?? "David";
+                var data = await _jira.GetIssuesByAssigneeAsync(assignee, cancellationToken);
+                return BuildAssigneeResponse(assignee, data, request.IncludeRawToolData);
+            }
+
+            var issues = await _jira.GetProjectIssuesAsync(projectKey, cancellationToken);
+            return BuildProjectResponse(projectKey, issues, request.IncludeRawToolData);
+        }
+        catch (Exception)
         {
-            var data = await _jira.GetSprintSummaryAsync(projectKey, null, cancellationToken);
-            return BuildSprintResponse(data, request.IncludeRawToolData);
+            return BuildCloudUnavailableResponse();
         }
-
-        if (q.Contains("asign") || q.Contains("assigned"))
-        {
-            var assignee = request.UserName ?? "David";
-            var data = await _jira.GetIssuesByAssigneeAsync(assignee, cancellationToken);
-            return BuildAssigneeResponse(assignee, data, request.IncludeRawToolData);
-        }
-
-        var issues = await _jira.GetProjectIssuesAsync(projectKey, cancellationToken);
-        return BuildProjectResponse(projectKey, issues, request.IncludeRawToolData);
     }
+
+    private static AgentResponse BuildCloudUnavailableResponse() =>
+        new(
+            "No he podido consultar Jira Cloud en este momento. Revisa conectividad, credenciales y límites de Jira, y vuelve a intentarlo.",
+            [],
+            null,
+            ["¿Quieres que te ayude a validar la configuración Jira:BaseUrl, Jira:Email y Jira:ApiToken?", "¿Quieres que probemos el modo Mock mientras se recupera Jira Cloud?"]);
 
     private static AgentResponse BuildBlockedResponse(IReadOnlyList<JiraIssue> issues, bool includeRaw)
     {

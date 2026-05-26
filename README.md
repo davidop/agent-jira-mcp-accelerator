@@ -238,8 +238,9 @@ samples/
 ### Fase 2: Integracion Jira real
 
 - Jira Cloud REST API.
-- Soporte JQL.
-- Escritura controlada con aprobaciones.
+- Soporte JQL con plantillas deterministas.
+- Paginacion, reintentos y manejo de rate limits.
+- Modo read-only para demo enterprise segura.
 
 ### Fase 3: Demo enterprise en Azure
 
