@@ -1,0 +1,152 @@
+[
+  {
+    "key": "KM-101",
+    "projectKey": "KM",
+    "summary": "Implementar autenticaci\u00f3n con Entra ID",
+    "status": "In Progress",
+    "priority": "High",
+    "assignee": "David Oliva",
+    "epicKey": "KM-10",
+    "epicName": "Seguridad y acceso",
+    "sprint": "Sprint 4",
+    "blocked": false,
+    "ageDays": 5,
+    "updatedAt": "2026-05-23T10:30:00Z",
+    "labels": [
+      "security",
+      "backend"
+    ],
+    "blockReason": null
+  },
+  {
+    "key": "KM-102",
+    "projectKey": "KM",
+    "summary": "Configurar Key Vault para secretos de la aplicaci\u00f3n",
+    "status": "Blocked",
+    "priority": "Critical",
+    "assignee": "Laura Garc\u00eda",
+    "epicKey": "KM-10",
+    "epicName": "Seguridad y acceso",
+    "sprint": "Sprint 4",
+    "blocked": true,
+    "ageDays": 12,
+    "updatedAt": "2026-05-21T09:00:00Z",
+    "labels": [
+      "security",
+      "blocked"
+    ],
+    "blockReason": "Pendiente de permisos sobre la suscripci\u00f3n Azure"
+  },
+  {
+    "key": "KM-103",
+    "projectKey": "KM",
+    "summary": "Crear \u00edndice de documentaci\u00f3n en Azure AI Search",
+    "status": "To Do",
+    "priority": "High",
+    "assignee": "Marta Ruiz",
+    "epicKey": "KM-11",
+    "epicName": "Knowledge retrieval",
+    "sprint": "Sprint 4",
+    "blocked": false,
+    "ageDays": 3,
+    "updatedAt": "2026-05-22T12:15:00Z",
+    "labels": [
+      "ai-search"
+    ],
+    "blockReason": null
+  },
+  {
+    "key": "KM-104",
+    "projectKey": "KM",
+    "summary": "Exponer herramientas MCP para consultas de sprint",
+    "status": "In Progress",
+    "priority": "High",
+    "assignee": "David Oliva",
+    "epicKey": "KM-12",
+    "epicName": "MCP Jira tools",
+    "sprint": "Sprint 4",
+    "blocked": false,
+    "ageDays": 7,
+    "updatedAt": "2026-05-24T08:00:00Z",
+    "labels": [
+      "mcp",
+      "dotnet"
+    ],
+    "blockReason": null
+  },
+  {
+    "key": "KM-105",
+    "projectKey": "KM",
+    "summary": "Validar flujo OAuth con Jira Cloud",
+    "status": "Blocked",
+    "priority": "Medium",
+    "assignee": "Carlos P\u00e9rez",
+    "epicKey": "KM-12",
+    "epicName": "MCP Jira tools",
+    "sprint": "Sprint 4",
+    "blocked": true,
+    "ageDays": 14,
+    "updatedAt": "2026-05-20T17:45:00Z",
+    "labels": [
+      "jira",
+      "blocked"
+    ],
+    "blockReason": "Falta registrar la aplicaci\u00f3n en Atlassian Developer Console"
+  },
+  {
+    "key": "KM-106",
+    "projectKey": "KM",
+    "summary": "Crear dashboard Blazor para demo ejecutiva",
+    "status": "Done",
+    "priority": "Medium",
+    "assignee": "Sof\u00eda L\u00f3pez",
+    "epicKey": "KM-13",
+    "epicName": "Demo experience",
+    "sprint": "Sprint 4",
+    "blocked": false,
+    "ageDays": 2,
+    "updatedAt": "2026-05-24T15:10:00Z",
+    "labels": [
+      "frontend",
+      "blazor"
+    ],
+    "blockReason": null
+  },
+  {
+    "key": "KM-107",
+    "projectKey": "KM",
+    "summary": "Preparar script de demo de 10 minutos",
+    "status": "Done",
+    "priority": "Medium",
+    "assignee": "David Oliva",
+    "epicKey": "KM-13",
+    "epicName": "Demo experience",
+    "sprint": "Sprint 4",
+    "blocked": false,
+    "ageDays": 1,
+    "updatedAt": "2026-05-24T16:00:00Z",
+    "labels": [
+      "presales"
+    ],
+    "blockReason": null
+  },
+  {
+    "key": "KM-108",
+    "projectKey": "KM",
+    "summary": "Configurar observabilidad con Application Insights",
+    "status": "To Do",
+    "priority": "Medium",
+    "assignee": "Marta Ruiz",
+    "epicKey": "KM-14",
+    "epicName": "Azure deployment",
+    "sprint": "Sprint 4",
+    "blocked": false,
+    "ageDays": 4,
+    "updatedAt": "2026-05-22T11:00:00Z",
+    "labels": [
+      "observability",
+      "azure"
+    ],
+    "blockReason": null
+  }
+]

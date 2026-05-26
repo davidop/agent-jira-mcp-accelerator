@@ -1,0 +1,19 @@
+name: enterprise-agent-accelerator
+metadata:
+  template: enterprise-agent-accelerator@0.1.0
+services:
+  agent-api:
+    project: ../src/Agent.Api
+    language: dotnet
+    host: containerapp
+  jira-mcp-server:
+    project: ../src/Jira.McpServer
+    language: dotnet
+    host: containerapp
+  web:
+    project: ../src/Web
+    language: dotnet
+    host: containerapp
+infra:
+  provider: bicep
+  path: bicep

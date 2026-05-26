@@ -1,0 +1,73 @@
+@page "/"
+@using System.Net.Http.Json
+@using EnterpriseAgentAccelerator.Shared.Contracts
+@inject IHttpClientFactory HttpClientFactory
+
+<main class="shell">
+    <section class="hero">
+        <p class="eyebrow">Knowmad Mood · Microsoft Expert Center</p>
+        <h1>Enterprise Agent Accelerator</h1>
+        <p>Agente empresarial con Jira vía MCP, .NET y Azure. Demo orientada a delivery, PMO y reporting ejecutivo.</p>
+    </section>
+
+    <section class="card">
+        <label>Pregunta</label>
+        <textarea @bind="question" rows="4"></textarea>
+        <div class="actions">
+            <button @onclick="AskAsync" disabled="@loading">@(loading ? "Consultando..." : "Preguntar")</button>
+            <button class="secondary" @onclick="() => question = DemoQuestions[0]">Bloqueos</button>
+            <button class="secondary" @onclick="() => question = DemoQuestions[1]">Sprint</button>
+            <button class="secondary" @onclick="() => question = DemoQuestions[2]">Ejecutivo</button>
+        </div>
+    </section>
+
+    @if (!string.IsNullOrWhiteSpace(answer))
+    {
+        <section class="card response">
+            <h2>Respuesta</h2>
+            <pre>@answer</pre>
+            @if (tools?.Length > 0)
+            {
+                <p><strong>Herramientas usadas:</strong> @string.Join(", ", tools)</p>
+            }
+        </section>
+    }
+</main>
+
+@code {
+    private readonly string[] DemoQuestions =
+    [
+        "¿Qué issues están bloqueadas en el proyecto KM?",
+        "Resume el estado del sprint actual para comité de dirección.",
+        "Dame un informe ejecutivo del proyecto KM con riesgos, bloqueos y próximos pasos."
+    ];
+
+    private string question = "Resume el estado del sprint actual para comité de dirección.";
+    private string? answer;
+    private string[]? tools;
+    private bool loading;
+
+    private async Task AskAsync()
+    {
+        loading = true;
+        answer = null;
+        tools = null;
+        try
+        {
+            var client = HttpClientFactory.CreateClient("agent");
+            var response = await client.PostAsJsonAsync("/api/agent/ask", new AgentRequest(question, "KM", "David", false));
+            response.EnsureSuccessStatusCode();
+            var agentResponse = await response.Content.ReadFromJsonAsync<AgentResponse>();
+            answer = agentResponse?.Answer;
+            tools = agentResponse?.ToolsUsed;
+        }
+        catch (Exception ex)
+        {
+            answer = $"No se pudo consultar el agente: {ex.Message}";
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+}
