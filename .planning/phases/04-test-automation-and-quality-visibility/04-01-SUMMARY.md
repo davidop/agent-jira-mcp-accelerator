@@ -61,7 +61,7 @@ Each task was committed atomically:
 1. **Task 2: Scaffold xUnit and Playwright test projects with deterministic fixture seam** - `d94969f` (test)
 2. **Task 2 support seam: in-memory app host visibility** - `78fc982` (feat)
 
-**Plan metadata:** pending
+**Plan metadata:** `81150bf` (docs)
 
 ## Files Created/Modified
 - `tests/Fixtures/jira-mock-stable.json` - Shared deterministic fixture corpus for all test layers.
@@ -123,7 +123,8 @@ Each task was committed atomically:
 - Test suites are ready for CI invocation and future expansion without cloud credentials.
 
 ## Self-Check
-- Pending
+- PASSED
+- Verified summary file exists and task commits `d94969f` and `78fc982` are present in history.
 
 ---
 *Phase: 04-test-automation-and-quality-visibility*
