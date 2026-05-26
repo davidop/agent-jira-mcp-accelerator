@@ -47,10 +47,10 @@ public sealed class DemoAgentService
 
     private static AgentResponse BuildCloudUnavailableResponse() =>
         new(
-            "No he podido consultar Jira Cloud en este momento. Revisa conectividad, credenciales y límites de Jira, y vuelve a intentarlo.",
+            "No he podido consultar Jira en este momento. Revisa conectividad, configuración y límites de Jira, y vuelve a intentarlo.",
             [],
             null,
-            ["¿Quieres que te ayude a validar la configuración Jira:BaseUrl, Jira:Email y Jira:ApiToken?", "¿Quieres que probemos el modo Mock mientras se recupera Jira Cloud?"]);
+            ["¿Quieres que te ayude a validar la configuración Jira:BaseUrl, Jira:Email y Jira:ApiToken?", "¿Quieres que probemos el modo Mock mientras se recupera el acceso a Jira?"]);
 
     private static AgentResponse BuildBlockedResponse(IReadOnlyList<JiraIssue> issues, bool includeRaw)
     {

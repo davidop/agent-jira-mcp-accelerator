@@ -64,12 +64,11 @@ public sealed class MockJiraReader : IJiraReader
     private async Task<IReadOnlyList<JiraIssue>> LoadAsync(CancellationToken cancellationToken)
     {
         if (_cache is not null) return _cache;
-        var path = _options.MockDataPath ?? Path.Combine(AppContext.BaseDirectory, "jira-mock-data.json");
-        if (!Path.IsPathRooted(path)) path = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, path));
+        var configuredPath = _options.MockDataPath ?? "samples/jira-mock-data.json";
+        var path = ResolvePath(configuredPath);
         if (!File.Exists(path))
         {
-            var fallback = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../samples/jira-mock-data.json"));
-            path = File.Exists(fallback) ? fallback : path;
+            path = FindSampleFile(configuredPath) ?? path;
         }
 
         await using var stream = File.OpenRead(path);
@@ -78,5 +77,48 @@ public sealed class MockJiraReader : IJiraReader
             PropertyNameCaseInsensitive = true
         }, cancellationToken) ?? [];
         return _cache;
+    }
+
+    private static string ResolvePath(string path)
+    {
+        if (Path.IsPathRooted(path))
+        {
+            return path;
+        }
+
+        var baseDir = AppContext.BaseDirectory;
+        return Path.GetFullPath(Path.Combine(baseDir, path));
+    }
+
+    private static string? FindSampleFile(string configuredPath)
+    {
+        var candidates = new[]
+        {
+            configuredPath,
+            "samples/jira-mock-data.json"
+        };
+
+        var roots = new[]
+        {
+            new DirectoryInfo(AppContext.BaseDirectory),
+            new DirectoryInfo(Directory.GetCurrentDirectory())
+        };
+
+        foreach (var root in roots)
+        {
+            for (var current = root; current is not null; current = current.Parent)
+            {
+                foreach (var candidate in candidates)
+                {
+                    var fullPath = Path.GetFullPath(Path.Combine(current.FullName, candidate));
+                    if (File.Exists(fullPath))
+                    {
+                        return fullPath;
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 }
