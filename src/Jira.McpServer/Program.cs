@@ -1,8 +1,10 @@
 using EnterpriseAgentAccelerator.Jira.Client;
 using EnterpriseAgentAccelerator.Jira.McpServer.Tools;
+using EnterpriseAgentAccelerator.ServiceDefaults;
 using ModelContextProtocol.Server;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.AddServiceDefaults();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -27,5 +29,7 @@ app.MapGet("/demo/projects/{projectKey}/blocked", async (string projectKey, IJir
 
 app.MapGet("/demo/projects/{projectKey}/sprint-summary", async (string projectKey, IJiraReader jira, CancellationToken ct) =>
     Results.Ok(await jira.GetSprintSummaryAsync(projectKey, null, ct)));
+
+app.MapDefaultEndpoints();
 
 app.Run();

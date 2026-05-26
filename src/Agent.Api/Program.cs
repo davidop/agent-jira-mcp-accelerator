@@ -1,8 +1,10 @@
 using EnterpriseAgentAccelerator.Agent.Api.Services;
 using EnterpriseAgentAccelerator.Jira.Client;
+using EnterpriseAgentAccelerator.ServiceDefaults;
 using EnterpriseAgentAccelerator.Shared.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.AddServiceDefaults();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -20,5 +22,7 @@ app.MapPost("/api/agent/ask", async (AgentRequest request, DemoAgentService agen
     var response = await agent.AnswerAsync(request, ct);
     return Results.Ok(response);
 });
+
+app.MapDefaultEndpoints();
 
 app.Run();

@@ -1,5 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsAspireHost>true</IsAspireHost>
+    <AspireHostingSDKVersion>13.0.0</AspireHostingSDKVersion>
+
+    <AspireCliBundleDir Condition="'$(ASPIRE_CLI_BUNDLE_DIR)' != ''">$(ASPIRE_CLI_BUNDLE_DIR)</AspireCliBundleDir>
+    <AspireCliBundleDir Condition="'$(AspireCliBundleDir)' == ''">$(UserProfile)\.dotnet\tools\.store\aspire.cli\13.3.5\aspire.cli.win-x64\13.3.5\tools\net10.0\bundle</AspireCliBundleDir>
+
+    <DcpDir Condition="Exists('$(AspireCliBundleDir)\dcp\dcp.exe')">$(AspireCliBundleDir)\dcp</DcpDir>
+    <AspireDashboardDir Condition="Exists('$(AspireCliBundleDir)\managed\aspire-managed.exe')">$(AspireCliBundleDir)\managed</AspireDashboardDir>
+    <AspireDashboardPath Condition="Exists('$(AspireCliBundleDir)\managed\aspire-managed.exe')">$(AspireCliBundleDir)\managed\aspire-managed.exe</AspireDashboardPath>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="10.0.0" />
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="13.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Agent.Api/Agent.Api.csproj" />
+    <ProjectReference Include="../Jira.McpServer/Jira.McpServer.csproj" />
+    <ProjectReference Include="../Web/Web.csproj" />
   </ItemGroup>
 </Project>

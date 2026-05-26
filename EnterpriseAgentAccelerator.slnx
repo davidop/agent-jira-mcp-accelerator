@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="src/Shared/Shared.csproj" />
+  <Project Path="src/ServiceDefaults/ServiceDefaults.csproj" />
   <Project Path="src/Jira.Client/Jira.Client.csproj" />
   <Project Path="src/Jira.McpServer/Jira.McpServer.csproj" />
   <Project Path="src/Agent.Api/Agent.Api.csproj" />
