@@ -1,0 +1,12 @@
+{
+	"servers": {
+		"playwright": {
+			"command": "npx",
+			"args": ["-y", "@playwright/mcp@latest"]
+		},
+		"mermaid": {
+			"command": "npx",
+			"args": ["-y", "mcp-server-mermaid@latest"]
+		}
+	}
+}
