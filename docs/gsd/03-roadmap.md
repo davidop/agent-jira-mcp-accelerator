@@ -40,6 +40,13 @@
 - Add post-deploy verification gate to ensure ACR repositories are not empty.
 - Keep runtime deployment to Container Apps in a later phase once Container Apps resources exist in Bicep.
 
+## Phase 4.2 — Container Apps runtime deployment and URLs
+
+- Add Azure Container Apps Environment and three Container Apps in Bicep.
+- Deploy runtime after image publish using the same tagged images.
+- Output and verify public service URLs for `web`, `agent-api`, and `jira-mcp-server`.
+- Keep governance hardening (private networking, approvals) for later phases.
+
 ## Phase 5 — Multi-system accelerator
 
 - Azure DevOps MCP.

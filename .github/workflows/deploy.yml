@@ -54,6 +54,7 @@ jobs:
           azd env select $AZURE_ENV_NAME --no-prompt
           azd env set AZURE_LOCATION $AZURE_LOCATION
           azd env set AZURE_RESOURCE_GROUP $AZURE_RESOURCE_GROUP
+          azd env set DEPLOY_APPS false
           azd provision --preview --no-prompt
         env:
           AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -69,6 +70,12 @@ jobs:
           AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
           AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+
+      - name: Ensure deployApps is disabled for base infra stage
+        working-directory: infra
+        run: |
+          azd env select $AZURE_ENV_NAME --no-prompt
+          azd env set DEPLOY_APPS false
 
       - name: Verify provisioned Azure resources
         run: |
@@ -146,3 +153,47 @@ jobs:
 
             echo "$tags"
           done
+
+      - name: Runtime deploy what-if (Container Apps)
+        run: |
+          set -euo pipefail
+
+          az deployment group what-if \
+            --resource-group "$AZURE_RESOURCE_GROUP" \
+            --template-file infra/bicep/main.bicep \
+            --parameters \
+              location="$AZURE_LOCATION" \
+              name="ent-agent-accel" \
+              deployApps=true \
+              imageTag="${GITHUB_SHA}"
+
+      - name: Runtime deploy (Container Apps)
+        run: |
+          set -euo pipefail
+
+          az deployment group create \
+            --resource-group "$AZURE_RESOURCE_GROUP" \
+            --name "runtime-${GITHUB_RUN_ID}" \
+            --template-file infra/bicep/main.bicep \
+            --parameters \
+              location="$AZURE_LOCATION" \
+              name="ent-agent-accel" \
+              deployApps=true \
+              imageTag="${GITHUB_SHA}"
+
+      - name: Verify runtime URLs
+        run: |
+          set -euo pipefail
+
+          AGENT_API_FQDN=$(az containerapp show --name ent-agent-accel-api --resource-group "$AZURE_RESOURCE_GROUP" --query properties.configuration.ingress.fqdn -o tsv)
+          MCP_FQDN=$(az containerapp show --name ent-agent-accel-mcp --resource-group "$AZURE_RESOURCE_GROUP" --query properties.configuration.ingress.fqdn -o tsv)
+          WEB_FQDN=$(az containerapp show --name ent-agent-accel-web --resource-group "$AZURE_RESOURCE_GROUP" --query properties.configuration.ingress.fqdn -o tsv)
+
+          if [ -z "$AGENT_API_FQDN" ] || [ -z "$MCP_FQDN" ] || [ -z "$WEB_FQDN" ]; then
+            echo "One or more Container Apps URLs are empty"
+            exit 1
+          fi
+
+          echo "Agent API URL: https://$AGENT_API_FQDN"
+          echo "Jira MCP URL: https://$MCP_FQDN"
+          echo "Web URL: https://$WEB_FQDN"
