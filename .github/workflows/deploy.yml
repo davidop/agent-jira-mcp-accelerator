@@ -20,6 +20,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
       - name: Azure Login
         uses: azure/login@v2
         with:
@@ -90,3 +95,54 @@ jobs:
             --name "entagentaccelst" >/dev/null
 
           echo "Verified existing Azure resources in resource group: $AZURE_RESOURCE_GROUP"
+
+      - name: Publish service images to ACR
+        run: |
+          set -euo pipefail
+
+          ACR_NAME="entagentaccelacr"
+          ACR_LOGIN_SERVER=$(az acr show --name "$ACR_NAME" --resource-group "$AZURE_RESOURCE_GROUP" --query loginServer -o tsv)
+
+          az acr login --name "$ACR_NAME"
+
+          dotnet publish src/Agent.Api/Agent.Api.csproj \
+            -c Release \
+            /t:PublishContainer \
+            -p:EnableSdkContainerSupport=true \
+            -p:ContainerRegistry="$ACR_LOGIN_SERVER" \
+            -p:ContainerRepository="agent-api" \
+            -p:ContainerImageTag="${GITHUB_SHA}"
+
+          dotnet publish src/Jira.McpServer/Jira.McpServer.csproj \
+            -c Release \
+            /t:PublishContainer \
+            -p:EnableSdkContainerSupport=true \
+            -p:ContainerRegistry="$ACR_LOGIN_SERVER" \
+            -p:ContainerRepository="jira-mcp-server" \
+            -p:ContainerImageTag="${GITHUB_SHA}"
+
+          dotnet publish src/Web/Web.csproj \
+            -c Release \
+            /t:PublishContainer \
+            -p:EnableSdkContainerSupport=true \
+            -p:ContainerRegistry="$ACR_LOGIN_SERVER" \
+            -p:ContainerRepository="web" \
+            -p:ContainerImageTag="${GITHUB_SHA}"
+
+      - name: Verify ACR repositories contain published tags
+        run: |
+          set -euo pipefail
+
+          ACR_NAME="entagentaccelacr"
+
+          for repo in agent-api jira-mcp-server web; do
+            echo "Checking tags for repository: $repo"
+            tags=$(az acr repository show-tags --name "$ACR_NAME" --repository "$repo" --top 5 -o tsv)
+
+            if [ -z "$tags" ]; then
+              echo "No tags found in $repo"
+              exit 1
+            fi
+
+            echo "$tags"
+          done

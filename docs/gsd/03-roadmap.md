@@ -33,6 +33,13 @@
 - Container Apps deployment.
 - IaC and CI/CD.
 
+## Phase 4.1 — App image publication to ACR
+
+- Build container images for `Agent.Api`, `Jira.McpServer`, and `Web` in deploy workflow.
+- Push tagged images to ACR after infra provisioning.
+- Add post-deploy verification gate to ensure ACR repositories are not empty.
+- Keep runtime deployment to Container Apps in a later phase once Container Apps resources exist in Bicep.
+
 ## Phase 5 — Multi-system accelerator
 
 - Azure DevOps MCP.
