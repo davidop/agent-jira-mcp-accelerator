@@ -1,12 +1,23 @@
 {
 	"servers": {
+		"Bicep": {
+			"type": "stdio",
+			"command": "dnx",
+			"args": [
+				"-y",
+				"Azure.Bicep.McpServer"
+			]
+		},
+		"mermaid-mcp": {
+			"url": "https://mcp.mermaid.ai/mcp",
+			"type": "http"
+		},
 		"playwright": {
 			"command": "npx",
-			"args": ["-y", "@playwright/mcp@latest"]
-		},
-		"mermaid": {
-			"command": "npx",
-			"args": ["-y", "mcp-server-mermaid@latest"]
+			"args": [
+				"-y",
+				"@playwright/mcp@latest"
+			]
 		}
 	}
 }
