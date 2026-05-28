@@ -212,6 +212,12 @@ resource webApp 'Microsoft.App/containerApps@2024-03-01' = if (deployApps) {
         {
           name: 'web'
           image: '${acr.properties.loginServer}/web:${imageTag}'
+          env: [
+            {
+              name: 'AgentApi__BaseUrl'
+              value: 'https://${agentApiApp!.properties.configuration.ingress.fqdn}'
+            }
+          ]
           resources: {
             cpu: json('0.5')
             memory: '1Gi'
