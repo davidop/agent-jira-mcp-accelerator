@@ -53,3 +53,9 @@ Position as accelerator:
 - Same pattern works for Jira, Azure DevOps, GitHub, ServiceNow, Confluence and SharePoint.
 - Start read-only; then add governed actions.
 - Package as MVP + enterprise hardening.
+
+Release hardening notes for v1.0:
+
+- CI runs deterministic xUnit + Playwright smoke validation.
+- Deployment workflow publishes service images to ACR and deploys runtime to Container Apps.
+- Governance expansion (write approvals, advanced RBAC, private networking) is intentionally a next phase.

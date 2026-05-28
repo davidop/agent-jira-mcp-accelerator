@@ -1,0 +1,35 @@
+flowchart TD
+  REQ04[REQ-04 Core demo flows]
+  REQ06[REQ-06 Test automation and quality visibility]
+  REQ07[REQ-07 Deterministic CI quality gates]
+
+  subgraph XUnit
+    JC[Jira.Client.Tests]
+    API[Agent.Api.Tests]
+    MCP[Jira.McpServer.Tests]
+  end
+
+  subgraph E2E
+    WEB[Web.E2E SmokeJourneysTests]
+  end
+
+  subgraph CI
+    PIPE[.github/workflows/ci.yml]
+    ART[Test artifacts TRX, coverage, Playwright traces]
+  end
+
+  REQ04 --> WEB
+  REQ04 --> API
+  REQ04 --> MCP
+
+  REQ06 --> JC
+  REQ06 --> API
+  REQ06 --> MCP
+  REQ06 --> WEB
+
+  REQ07 --> PIPE
+  PIPE --> JC
+  PIPE --> API
+  PIPE --> MCP
+  PIPE --> WEB
+  PIPE --> ART

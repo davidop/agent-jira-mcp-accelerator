@@ -250,6 +250,11 @@ samples/
 - Azure AI Search.
 - Azure OpenAI / Foundry.
 
+Estado actual:
+- Provision + publish a ACR implementado en CI/CD.
+- Runtime en Azure Container Apps implementado y validado por URL.
+- Integraciones AI avanzadas se mantienen como siguiente etapa.
+
 ### Fase 4: Gobierno enterprise
 
 - Integracion Entra ID.
@@ -258,6 +263,14 @@ samples/
 - Aprobacion de tool-calls.
 - Networking privado.
 - Expansion multi-sistema MCP (Azure DevOps, GitHub, ServiceNow, Confluence, SharePoint).
+
+## Estado de release v1.0
+
+- Jira Cloud en modo read-only completado.
+- Test automation (xUnit + Playwright smoke) integrado en CI.
+- Diagramas Mermaid de cobertura y flujo CI disponibles en `docs/testing`.
+- Despliegue Azure con publicacion de imagenes y runtime de Container Apps disponible via workflow.
+- Hardening de gobierno enterprise (Entra, RBAC fino, aprobaciones de escritura) permanece como fase posterior.
 
 ## Contribuciones
 

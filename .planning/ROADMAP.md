@@ -3,8 +3,10 @@
 ## Phases
 
 - [x] **Phase 2: Jira Cloud integration** - Move demo data reads from mock to Jira Cloud with resilient, read-only behavior.
-- [ ] **Phase 3: Release hardening** - Finalize docs, verification, and release readiness for v1.0.
-- [ ] **Phase 4: Test automation and quality visibility** - Add automated Playwright + xUnit coverage and Mermaid quality artifacts.
+- [x] **Phase 3: Release hardening** - Finalize docs, verification, and release readiness for v1.0.
+- [x] **Phase 4: Test automation and quality visibility** - Add automated Playwright + xUnit coverage and Mermaid quality artifacts.
+- [x] **Phase 4.1: App image publication to ACR** - Publish service images to Azure Container Registry and verify repository/tag availability.
+- [x] **Phase 4.2: Container Apps runtime deployment and URLs** - Deploy runtime services on Azure Container Apps and validate public service endpoints.
 
 ## Phase Details
 
@@ -32,7 +34,7 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 03-01: Update release docs and verification scripts.
+- [x] 03-01: Update release docs and verification scripts.
 
 ### Phase 4: Test automation and quality visibility
 **Goal**: Establish automated test gates for UI and backend with traceable quality documentation.
@@ -47,7 +49,33 @@ Plans:
 
 Plans:
 - [x] 04-01: Add Playwright and xUnit test automation baseline with CI integration.
-- [ ] 04-02: Enforce CI test gates and publish quality visibility artifacts/documentation.
+- [x] 04-02: Enforce CI test gates and publish quality visibility artifacts/documentation.
+
+### Phase 4.1: App image publication to ACR
+**Goal**: Publish deployable container images for core services to ACR as a deterministic deployment artifact.
+**Depends on**: Phase 4
+**Requirements**: REQ-04, REQ-07
+**Success Criteria** (what must be TRUE):
+	1. Deploy workflow builds and publishes images for API, MCP server, and Web.
+	2. ACR repositories contain tags for the current deployment run.
+	3. Existing infrastructure validation remains green after image publication.
+**Plans**: 1 plan
+
+Plans:
+- [x] 04.1-01: Publish app images to ACR and verify repository tags.
+
+### Phase 4.2: Container Apps runtime deployment and URLs
+**Goal**: Deploy runtime services to Azure Container Apps and expose verifiable public URLs.
+**Depends on**: Phase 4.1
+**Requirements**: REQ-04, REQ-07
+**Success Criteria** (what must be TRUE):
+	1. Runtime deployment creates Container Apps environment and three service apps.
+	2. Each service has a resolvable ingress FQDN.
+	3. Deployment logs print URLs for API, MCP, and Web services.
+**Plans**: 1 plan
+
+Plans:
+- [x] 04.2-01: Deploy Container Apps runtime and verify service URLs.
 
 ## Phase 2 — Jira Cloud integration
 
@@ -71,6 +99,18 @@ Plans:
 - Generate Mermaid diagrams to document test coverage and execution flows.
 - Wire test execution into local and CI verification steps.
 - Publish deterministic test artifacts for release validation.
+
+## Phase 4.1 — App image publication to ACR
+
+- Build and publish container images for Agent API, Jira MCP server, and Web.
+- Push images to Azure Container Registry with deterministic tags.
+- Validate ACR repositories and tags as a deployment gate.
+
+## Phase 4.2 — Container Apps runtime deployment and URLs
+
+- Deploy Container Apps environment and runtime services for API, MCP, and Web.
+- Use published image tags from ACR for deterministic release.
+- Validate and publish public URLs for service reachability checks.
 
 ## Release Exit Criteria
 

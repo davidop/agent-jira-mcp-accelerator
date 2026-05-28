@@ -1,0 +1,16 @@
+flowchart TD
+  A[Checkout] --> B[Setup .NET]
+  B --> C[Restore]
+  C --> D[Build]
+  D --> E[Test Jira.Client]
+  E --> F[Test Agent.Api]
+  F --> G[Test Jira.McpServer]
+  G --> H[Build Web.E2E]
+  H --> I[Install Playwright browsers]
+  I --> J[Smoke tests attempt 1]
+  J --> K{Attempt 1 success?}
+  K -- yes --> M[Enforce smoke gate pass]
+  K -- no --> L[Smoke tests retry 1]
+  L --> M
+  M --> N[Mermaid freshness warning non-blocking]
+  N --> O[Upload test diagnostics artifacts]

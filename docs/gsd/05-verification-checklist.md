@@ -31,3 +31,16 @@
 - [ ] Demo can be completed in 10 minutes.
 - [ ] Narrative explains value beyond Jira dashboards.
 - [ ] Roadmap explains enterprise hardening.
+
+## Testing Quality Visibility
+
+- [ ] `docs/testing/coverage-by-layer.mmd` maps REQ-04, REQ-06, and REQ-07.
+- [ ] `docs/testing/ci-execution-flow.mmd` reflects current CI stage order and smoke gate behavior.
+- [ ] Mermaid freshness policy is documented as warning-only (non-blocking) for this phase.
+
+## Release Hardening (v1.0)
+
+- [ ] `README.md` reflects current shipped scope (Cloud read-only, CI test gates, runtime deploy path).
+- [ ] `docs/demo-script.md` matches the shipped demo posture and current release caveats.
+- [ ] `docs/gsd/06-release-checklist.md` is complete with evidence links.
+- [ ] `docs/gsd/07-release-notes-v1.0.md` exists and lists capabilities, constraints, and next steps.
