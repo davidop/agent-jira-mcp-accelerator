@@ -86,11 +86,13 @@ Usa esta seccion como talk track en reuniones con cliente, account planning y de
 |---|---:|---|
 | Mock Jira dataset | Ready | Demo en cualquier entorno, incluso sin acceso Jira. |
 | Abstraccion de cliente Jira | Ready | Cambio limpio entre mock y Jira Cloud. |
+| Jira Cloud integration | Ready | Paginacion, reintentos, rate limits y normalizacion de estados. |
 | MCP Server en C# | Ready scaffold | Expone herramientas Jira para runtimes de agentes. |
 | Agent API facade | Ready scaffold | Capa REST para orquestacion y evolucion a LLMs. |
 | Blazor Web demo | Ready scaffold | Interaccion en lenguaje natural en minutos. |
 | Aspire AppHost | Ready scaffold | Orquestacion local de servicios. |
-| Infra Azure | Ready scaffold | Baseline Bicep para despliegue enterprise. |
+| CI/CD pipeline | Ready | Gates xUnit + Playwright smoke, publish a ACR y deploy a Container Apps. |
+| Infra Azure | Ready | Bicep con Container Apps, ACR, UAMI, Key Vault y Application Insights. |
 | Artefactos GSD | Ready | Requisitos, roadmap y verificacion trazables. |
 
 ## Como funciona

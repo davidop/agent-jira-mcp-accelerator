@@ -25,4 +25,4 @@
 
 ## Next
 
-- Run `/gsd-verify-work 3` to close phase-level UAT for release hardening.
+- Phase 3 is complete and verified.

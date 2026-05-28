@@ -9,7 +9,7 @@
 
 This project delivers an enterprise-oriented accelerator that turns Jira delivery data into actionable agent tooling via MCP and .NET services, with a path from local deterministic demo mode to Azure-hosted runtime.
 
-For v1.0, the milestone focused on making the cloud read path reliable, adding deterministic quality gates, and hardening release artifacts so the solution is handoff-ready for presales and engineering teams.
+For v1.0, the milestone focused on cloud-read reliability, deterministic quality gates, release hardening, and Azure runtime delivery readiness for presales and engineering handoff.
 
 ## 2. Architecture and Technical Decisions
 
@@ -42,7 +42,7 @@ For v1.0, the milestone focused on making the cloud read path reliable, adding d
 | Phase | Name | Status | Outcome |
 |-------|------|--------|---------|
 | 2 | Jira Cloud integration | Complete | Cloud read path hardened with pagination, retry/backoff, and status normalization. |
-| 3 | Release hardening | Complete | Release docs, verification hardening, and sign-off artifacts finalized. |
+| 3 | Release hardening | Complete | Release docs, verification hardening, release checklist, and release notes finalized. |
 | 4 | Test automation and quality visibility | Complete | xUnit + Playwright CI gates and Mermaid quality visibility artifacts delivered. |
 | 4.1 | App image publication to ACR | Complete | Deploy workflow publishes and validates ACR tags for all service images. |
 | 4.2 | Container Apps runtime deployment and URLs | Complete | Runtime deployment and endpoint URL verification added to Azure deploy flow. |
@@ -66,7 +66,7 @@ For v1.0, the milestone focused on making the cloud read path reliable, adding d
 
 - Advanced enterprise governance controls are deferred to subsequent milestones.
 - Multi-system MCP expansion (Azure DevOps, GitHub, ServiceNow, Confluence/SharePoint) remains backlog scope.
-- Some runtime checks depend on external Azure/GitHub execution confirmation rather than local-only validation.
+- Private networking and deep governance controls remain out of v1.0 release scope.
 
 ## 7. Getting Started
 
@@ -96,6 +96,6 @@ For v1.0, the milestone focused on making the cloud read path reliable, adding d
 
 - **Timeline:** 2026-05-26 -> 2026-05-28
 - **Phases:** 5 / 5 complete
-- **Commits:** 18
-- **Files changed:** 56 (+244 / -166)
+- **Commits:** 20
+- **Files changed:** 82 (+3923 / -48)
 - **Contributors:** David Oliva Paredes
