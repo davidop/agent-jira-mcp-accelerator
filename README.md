@@ -4,6 +4,7 @@
 [![.NET](https://img.shields.io/badge/.NET-10-blueviolet)](https://dotnet.microsoft.com/)
 [![MCP](https://img.shields.io/badge/Protocol-MCP-0ea5e9)](https://modelcontextprotocol.io/)
 [![Architecture](https://img.shields.io/badge/docs-architecture-informational)](docs/architecture.md)
+[![Deploy to Azure](https://github.com/davidop/agent-jira-mcp-accelerator/actions/workflows/deploy.yml/badge.svg)](https://github.com/davidop/agent-jira-mcp-accelerator/actions/workflows/deploy.yml)
 
 Acelerador orientado a produccion para convertir Jira en una herramienta de agentes enterprise con MCP, con un camino claro desde demo local con mock data hasta Jira Cloud y gobierno en Azure.
 
